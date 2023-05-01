@@ -15,7 +15,16 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-	console.log(socket.id);
+	console.log("Clients:", io.engine.clientsCount);
+	console.log("Client ID", socket.id);
+
+	// socket.on("disconnect", () => {
+	// 	console.log("El socket " + socket.id + " se ha desconectado");
+	// });
+
+	socket.conn.once("upgrade", () => {
+		console.log("transport: ", socket.conn.transport.name);
+	});
 });
 
 httpServer.listen(3000, () => {

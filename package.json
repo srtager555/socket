@@ -1,0 +1,16 @@
+{
+  "name": "learning-socket.io",
+  "version": "1.0.0",
+  "description": "bruh",
+  "main": "src/index.js",
+  "author": "Carlos && Ponce",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "bufferutil": "^4.0.7",
+    "utf-8-validate": "^6.0.3"
+  }
+}

@@ -15,16 +15,16 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-	console.log("Clients:", io.engine.clientsCount);
-	console.log("Client ID", socket.id);
+	// basic emit
 
-	// socket.on("disconnect", () => {
-	// 	console.log("El socket " + socket.id + " se ha desconectado");
-	// });
+	socket.emit("welcome", "Now you are connected!");
 
-	socket.conn.once("upgrade", () => {
-		console.log("transport: ", socket.conn.transport.name);
+	socket.on("server", (data) => {
+		console.log(data);
 	});
+
+	// emit to everyone
+	io.emit("everyone", socket.id + " has been connected");
 });
 
 httpServer.listen(3000, () => {

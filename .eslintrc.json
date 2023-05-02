@@ -2,7 +2,7 @@
 	"parserOptions": {
 		"ecmaVersion": 2022
 	},
-	"extends": ["eslint:recommended", "html"],
+	"extends": ["eslint:recommended"],
 	"env": {
 		"es6": true,
 		"node": true,
@@ -10,5 +10,13 @@
 	},
 	"rules": {
 		"no-console": "warn"
-	}
+	},
+	"overrides": [
+		{
+			"files": ["src/views/**/*.js"],
+			"rules": {
+				"no-undef": "off"
+			}
+		}
+	]
 }

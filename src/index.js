@@ -14,23 +14,26 @@ app.get("/", (req, res) => {
 	res.sendFile(__dirname + "views/index.html");
 });
 
-io.on("connection", (socket) => {
-	socket.conneted_room = "";
+// io.on("connection", (socket) => {
 
-	socket.on("connect to room", (room) => {
-		socket.leave(socket.conneted_room);
+// })
 
-		socket.conneted_room = room;
-		socket.join(room);
+const teachers = io.of("teachers");
+const students = io.of("students");
+
+teachers.on("connection", (socket) => {
+	console.log(socket.id, "teacher");
+
+	socket.on("send message", (data) => {
+		teachers.emit("message", data);
 	});
+});
 
-	socket.on("message", (message) => {
-		const room = socket.conneted_room;
+students.on("connection", (socket) => {
+	console.log(socket.id, "student");
 
-		io.to(room).emit("send message", {
-			message,
-			room,
-		});
+	socket.on("send message", (data) => {
+		students.emit("message", data);
 	});
 });
 

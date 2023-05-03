@@ -1,17 +1,13 @@
-const socket = io();
-
-const send = document.querySelector("#send");
-const disconnect = document.querySelector("#disconnect");
-const reconnect = document.querySelector("#reconnect");
-
-send.addEventListener("click", () => {
-	if (socket.connected) socket.emit("is connected", "You are connected!");
+const socket = io({
+	auth: {
+		token: "toke",
+	},
 });
 
-disconnect.addEventListener("click", () => {
-	socket.disconnect();
-});
+// connection error
 
-reconnect.addEventListener("click", () => {
-	socket.connect();
+socket.on("connect_error", (err) => {
+	console.log("connection error");
+	console.log(err.message);
+	console.log(err.data.detail);
 });

@@ -14,26 +14,9 @@ app.get("/", (req, res) => {
 	res.sendFile(__dirname + "views/index.html");
 });
 
-// io.on("connection", (socket) => {
-
-// })
-
-const teachers = io.of("teachers");
-const students = io.of("students");
-
-teachers.on("connection", (socket) => {
-	console.log(socket.id, "teacher");
-
-	socket.on("send message", (data) => {
-		teachers.emit("message", data);
-	});
-});
-
-students.on("connection", (socket) => {
-	console.log(socket.id, "student");
-
-	socket.on("send message", (data) => {
-		students.emit("message", data);
+io.on("connection", (socket) => {
+	socket.on("is connected", (msg) => {
+		console.log(msg);
 	});
 });
 

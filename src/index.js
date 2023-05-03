@@ -15,8 +15,22 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-	socket.on("circle position", (position) => {
-		socket.broadcast.emit("move circle", position);
+	socket.conneted_room = "";
+
+	socket.on("connect to room", (room) => {
+		socket.leave(socket.conneted_room);
+
+		socket.conneted_room = room;
+		socket.join(room);
+	});
+
+	socket.on("message", (message) => {
+		const room = socket.conneted_room;
+
+		io.to(room).emit("send message", {
+			message,
+			room,
+		});
 	});
 });
 
